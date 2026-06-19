@@ -3,7 +3,7 @@
 ## Community: 
 <!-- What community did you choose and why? Why is this community a good fit for a classification task — what makes the discourse varied enough to be interesting?]
 -->
-I chose r/nba (the NBA Reddit community).
+I chose r/nba (the NBA Reddit community). \
 
 I selected this community because sports discourse on a massive public forum like Reddit serves as a perfect microscopic reflection of internet culture. It sits at a unique intersection of heavy data-driven analysis, journalistic reporting, corporate entertainment, and raw, emotionally charged fan tribalism. This means the community is constantly generating massive volumes of text that vary wildly in tone, intent, and substance on a daily basis.
 
@@ -11,16 +11,19 @@ I selected this community because sports discourse on a massive public forum lik
 <!--What are your 2–4 labels? Define each in a complete sentence. Include 2 example posts per label.
 -->
 1. Analytical / Insight-Driven: Posts or comments focused on statistical breakdowns, film/schematic analysis, salary cap logistics, or historical context.
+Some keywords/signals are: "Points Per Game", "True Shooting %," "PER," "pick-and-roll coverage," "cap space," linking to Basketball-Reference/cleaningtheglass.
 
-Examples:
+Label 1 Examples:
 
 "[Stat] In the 2026 NBA playoffs, opponents shot 52.6% on 16.5 FGA from within 5 feet of the rim when guarded by Victor Wembanyama"
 
-"[Highlights] All the 302 field goal attempts by De'Aaron Fox in the 2026 NBA Playoffs. 327 points on 125/302 FG (41.4%), 30/102 from 3 (29.4%), 47/62 FT (75.8%), in 704 minutes played. He played 21 out of the 23 playoffs games for the San Antonio Spurs."
+"3 Players in NBA History have averaged 2 Blocks & 2 Steals per Game for an entire Season: Hakeem Olajuwon, David Robinson, and? Gerald Wallace."
 
-2. Narrative / Fan Conjecture: Speculation about player legacies, locker room drama, trade rumors, or hypothetical "who is better" matchups. It's coherent discourse, but driven by storylines rather than hard evidence.
+2. Narrative / Fan Conjecture: Speculation about NBA team, player legacies, locker room drama, trade rumors, or hypothetical "who is better" matchups. It's coherent discourse, but driven by storylines rather than hard evidence.
+Some keywords/signals are: "GOAT debate," "legacy points," "source says," "vibes," "prime vs prime."
 
-Examples:
+
+Label 2 Examples:
 
 "Wemby Doesn’t Need To Gain Weight. That Defeats The Entire Purpose Of Wemby
 What makes him special isn’t strength it’s that he’s a 7’5” player who moves like a wing, covers half the court on defense, and can score from anywhere.
@@ -31,17 +34,18 @@ He isn’t Giannis or Shaq or Jokic, and he doesn’t need to be."
 
 "Gilbert arenas says to all the people that are saying the San Antonio spurs coach should have benched De'Aaron Fox for Dylan harper in the finals against the Knicks don't know basketball. Fox was their main guy the whole season you bench him in that moment you lose him mentally"
 
-3. Low-Effort / Reactionary: memes, shitposting, circlejerking, "copypasta," or knee-jerk emotional reactions immediately following a regular season game, playoff game or series.
+3. Low-Effort / Reactionary: memes, ragebaiting, making fun of, disrespecting, shitposting, circlejerking, "copypasta," or knee-jerk emotional reactions immediately following a regular season game, playoff game or series. 
+Some keywords/signals are: "Fraud," "washed," "carried," typing in all caps, short insults, or recycling memes, emojis.
 
-Examples:
+Label 3 Examples:
 
 "Michael Jordan 1987 Anti-Drug Public Service Announcement Sponsored By McDonalds."
 
 "Giannis Antetokounmpo Gives Inspirational Speech After Losing 2023 Playoffs: “There is no failure in sports.”
 
-4. News, Media & Fluff: Official team announcements, injury reports, highlights, and wholesome community/charity events where NBA players, owners, or employees attend it.
+4. News, Media & Fluff: Official team announcements, NBA transactions coming from sources (ESPN insiders), injury reports, and wholesome community/charity events where NBA players, owners, or employees attend it, can be interacting with the fans.
 
-Examples:
+Label 4 Examples:
 
 "Wemby and Champagnie dropping in for a surprise visit at a San Antonio Children's Hospital today."
 
@@ -53,18 +57,72 @@ Examples:
 -->
 One post/comment can have an opinion and then give stats, it's a challenge to classify it as Narrative/Fan Conjecture or Analytical/Insight-Driven. For example, if one post states Lebron James is the GOAT and says this because he came back down 3-1 in the NBA 2016 FInals. I will handle this by defining a Narrative/Fan Conjecture as offering an opinion with the possibility of offering soft evidence or none at all. In this example, saying coming down 3-1 isn't hard evidence, you have to offer more (stats, advanced analytics) to prove your claim, so this would be labeled as Narrative/Fan Conjecture.
 
+### Hard edge case examples
+```
+Who do you think is better? Paolo, or Maxey?
+
+Stats in this past regular season:
+
+Paolo: 22/8/5 on 57 TS%
+
+Maxey: 28/4/7 on 59 TS%
+
+Stats in their best individual playoff series:
+
+Paolo:
+
+27/9/4 on 55 TS% vs Cavs (2024)
+
+29/8/4 on 52 TS% vs Celtics (2025)
+
+26/9/6 on 52 TS% vs Pistons (2026)
+
+Maxey:
+
+30/5/7 on 60 TS% vs Knicks (2024)
+
+27/5/7 on 58 TS% vs Celtics (2026)
+
+Who’s the better player? 
+```
+Narrative offers an opinion with the possibility of soft evidence or none at all. This post does the exact opposite—it offers zero opinion of its own and provides a high volume of structured, hard evidence (advanced analytics) to let the community decide. I intially thought it was Narrative / Fan Conjecture since it was asking for an opinion. 
+
+``` 
+Chris Bosh Reflects on Spurs Losing Finals: "Second place, it sucks, you know. You don't want to get all the way to the championship and lose, especially when everybody's watching, when the whole world's watching. It's embarrassing, it's deflating."
+```
+
+I knew it was between Narrative / Fan Conjecture & News, Media & Fluff, I couldn't intially decide. Chris Bosh is a former player, not a fan, so I thought it can be news since its coming from a former champion. But News, Media & Fluff is for sources like NBA, ESPN insiders who provide league info through trusted sources. Chris Bosh gave his opinion on a podcast and he is giving his speculation of a team so this a Narrative / Fan Conjecture. You've now looked at quotes from J.R. Smith, Chris Bosh, and Draymond Green. Whenever a post on r/nba consists of a raw, text-only quote from a player reflecting on a past emotional moment, locker room conflict, or career milestone, it will almost always fall into Narrative / Fan Conjecture. They are the "soap opera" elements of the NBA that fans use to debate legacies and team chemistry, completely separate from hard analytics or breaking news headlines.
+
+``` 
+ Knicks’ Victory Caps Most Watched NBA Finals Since 1998
+https://www.hollywoodreporter.com/tv/tv-news/nba-finals-2026-tv-ratings-best-since-1998-1236622090/
+
+Saturday’s deciding fifth game averaged 24.5 million viewers on ABC and ESPN, the third game in a row to draw more than 20 million. The last time the finals drew 20 million-plus viewers over three consecutive contests was in 2016, for the final three games of the Cleveland Cavaliers’ comeback victory over the Golden State Warriors. The telecast was also the most watched game five since the 1998 NBA Finals, which marked Michael Jordan’s last championship with the Chicago Bulls. 
+```
+
+This is a fantastic edge case because the post is packed with numbers (24.5 million, 20 million, 2016, 1998). However, these are business/broadcast metrics, not basketball metrics. They don't break down how a basketball game was played, a team's salary cap logistics, or player performance statistics.
+
 ## Data collection plan: 
 <!--Where will you collect examples? How many per label? What will you do if a label is underrepresented after 200 examples?
 -->
-I will manually enter 200 samples from the reddit's NBA page and insert them into the CSV file (2 hours), 50 per each label (diversity) so that a label isn't underrepresented.
+I will manually enter 200 samples from the reddit's NBA page and insert them into the CSV file (4 hours), each label will not represent 70% of the total dataset (diversity) so that a label isn't overrepresented.
+
+
+| Label | # of Examples | % of Dataset |
+| -------- | -------- | -------- |
+| Analytical / Insight-Driven  | 31  | 15.5%  |
+| Narrative / Fan Conjecture  | 70  | 35%  |
+| Low Effort / Reactionary  | 25  | 12.5%  |
+| News, Media & Fluff | 72 | 36%  |
+
 
 ## Evaluation metrics: 
 <!--Which metrics will you use to evaluate your model and why are those the right ones for this specific task? (Accuracy alone is not enough — explain what else you need and why.)
 -->
 Rather than overall accuracy, I will consider per class accuracy, precision, recall, $F_1$-Score and confusion matrix. Per class accuracy is less flawed when compared to overall accurracy, especially when the dataset isn't diverse. Precision & Recall are when the model predicts the positive label class, how often is it right and out of all the actual positive label instances, how many did the model manage to find respectively. $F_1$-Score is a decimal value between 0 and 1, indicator of how good and complete are the predicted labels. A confusion matrix is used for classification models. It compares the model's predictions against the actual, true labels in a dataset, visually highlighting where the algorithm is getting "confused" and making mistakes
 
-Precision = True Positive / True Positive + False Positive
-Recall = True Positive / True Positive + False Negative
+Precision = True Positive / True Positive + False Positive \
+Recall = True Positive / True Positive + False Negative \
 $F_1$-Score = 2 * (Precision * Recall / Precision + Recall)
 
 ## Definition of success: 
@@ -166,7 +224,7 @@ I won't use an LLM to pre-label, putting labeled examples directly in the prompt
 Plan to give your list of wrong predictions to an AI tool and ask it to identify patterns before you write up your evaluation. Note what you'll look for and how you'll verify the patterns yourself.
 -->
 #### AI Input
-[Will paste LLM model's wrong predictions here] \
+[Will paste LLM model's wrong predictions] \
 My LLM text classifier got these label predictions wrong for these posts/comments, can you identify patterns in thses mistakes, are these directional error patterns?
 
 #### AI Output
