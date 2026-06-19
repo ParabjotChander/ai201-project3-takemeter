@@ -10,8 +10,7 @@ I selected this community because sports discourse on a massive public forum lik
 ## Labels: 
 <!--What are your 2–4 labels? Define each in a complete sentence. Include 2 example posts per label.
 -->
-1. Analytical / Insight-Driven: Posts or comments focused on statistical breakdowns, film/schematic analysis, salary cap logistics, or historical context.
-Some keywords/signals are: "Points Per Game", "True Shooting %," "PER," "pick-and-roll coverage," "cap space," linking to Basketball-Reference/cleaningtheglass.
+1. Analytical / Insight-Driven: Posts or comments focused on statistical breakdowns, film/schematic analysis, salary cap logistics, or historical context. Some keywords/signals are: "Points Per Game", "True Shooting %," "PER," "pick-and-roll coverage," "cap space," linking to Basketball-Reference/cleaningtheglass.
 
 Label 1 Examples:
 
@@ -19,8 +18,7 @@ Label 1 Examples:
 
 "3 Players in NBA History have averaged 2 Blocks & 2 Steals per Game for an entire Season: Hakeem Olajuwon, David Robinson, and? Gerald Wallace."
 
-2. Narrative / Fan Conjecture: Speculation about NBA team, player legacies, locker room drama, trade rumors, or hypothetical "who is better" matchups. It's coherent discourse, but driven by storylines rather than hard evidence.
-Some keywords/signals are: "GOAT debate," "legacy points," "source says," "vibes," "prime vs prime."
+2. Narrative / Fan Conjecture: Speculation about NBA team, player legacies, locker room drama, trade rumors, or hypothetical "who is better" matchups. It's coherent discourse, but driven by storylines rather than hard evidence.Some keywords/signals are: "GOAT debate," "legacy points," "source says," "vibes," "prime vs prime."
 
 
 Label 2 Examples:
@@ -34,8 +32,7 @@ He isn’t Giannis or Shaq or Jokic, and he doesn’t need to be."
 
 "Gilbert arenas says to all the people that are saying the San Antonio spurs coach should have benched De'Aaron Fox for Dylan harper in the finals against the Knicks don't know basketball. Fox was their main guy the whole season you bench him in that moment you lose him mentally"
 
-3. Low-Effort / Reactionary: memes, ragebaiting, making fun of, disrespecting, shitposting, circlejerking, "copypasta," or knee-jerk emotional reactions immediately following a regular season game, playoff game or series. 
-Some keywords/signals are: "Fraud," "washed," "carried," typing in all caps, short insults, or recycling memes, emojis.
+3. Low-Effort / Reactionary: memes, ragebaiting, making fun of, disrespecting, shitposting, circlejerking, "copypasta," or knee-jerk, emotional reactions immediately following a regular season game, playoff game or series. Some keywords/signals are: "Fraud," "washed," "carried," typing in all caps, short insults, or recycling memes, emojis.
 
 Label 3 Examples:
 
@@ -111,9 +108,9 @@ I will manually enter 200 samples from the reddit's NBA page and insert them int
 | Label | # of Examples | % of Dataset |
 | -------- | -------- | -------- |
 | Analytical / Insight-Driven  | 31  | 15.5%  |
-| Narrative / Fan Conjecture  | 70  | 35%  |
-| Low Effort / Reactionary  | 25  | 12.5%  |
-| News, Media & Fluff | 72 | 36%  |
+| Narrative / Fan Conjecture  | 71  | 35.5%  |
+| Low Effort / Reactionary  | 24  | 12% |
+| News, Media & Fluff | 74 | 37%  |
 
 
 ## Evaluation metrics: 
@@ -128,13 +125,13 @@ $F_1$-Score = 2 * (Precision * Recall / Precision + Recall)
 ## Definition of success: 
 <!--What performance would make this classifier genuinely useful? What would you accept as "good enough" for deployment in a real community tool?
 -->
-Success for my LLM text classifier means accuracy, no overfitting on training dataset and efficiently assigning labels to where the boundaries are defined and distinguishable. The model needs to handle edge cases well as it relates to Narrative/Fan Conjecture vs Analytical/Insight-Driven (difficult part of project). For a real-world community deployment, I would accept $F_1$-score of 0.78 to 0.82 as "good enough." Internet slang changes fast and sports discourse is inherently messy, attempting for a perfect 0.95+ score on human-generated text is unrealistic.
+Success for my LLM text classifier means accuracy, no overfitting on training dataset and efficiently assigning labels to where the boundaries are defined and distinguishable. The model needs to handle edge cases well as it relates to Narrative/Fan Conjecture vs Analytical/Insight-Driven (difficult part of project). For a real-world community deployment, I would accept $F_1$-score of 0.70 or above as "good enough." Internet slang changes fast and sports discourse is inherently messy, attempting for a perfect 0.95+ score on human-generated text is unrealistic.
 
 ## Evaluation Plan Review: 
 <!-- are your success criteria specific enough that you could objectively determine at the end whether you hit them?
 -->
 
-The success criteria is specific enough that I can objectively determine at the end whether I hit them. I am aiming for an 0.8 or above Precision score, 0.7 or above for Recall score, and 0.78 or above for my $F_1$-Score. For per class accuracy for each label, not overall accuracy, I am hoping for 80% or above.
+The success criteria is specific enough that I can objectively determine at the end whether I hit them. I am aiming for an 0.5 or above Precision score, 0.5 or above for Recall score, and 0.70 or above for my $F_1$-Score. For per class accuracy for each label, not overall accuracy, I am hoping for 80% or above.
 
 ## AI Tool Plan:
 
@@ -216,8 +213,7 @@ If you are ever stuck on a post during your actual data labeling phase, ask your
 ### Annotation assistance: 
 <!-- Decide whether you'll use an LLM to pre-label a batch of examples before reviewing them yourself. If yes, note which tool you'll use and how you'll track which examples were pre-labeled (for disclosure in your AI usage section).
 -->
-I won't use an LLM to pre-label, putting labeled examples directly in the prompt wouldn't make this a fine tuning model, but a few shot learning model (Week 3 lab).
-
+I will use Google Gemini, I'll track which examples were pre-labeled by having a note column in the CSV file, I will enter "prelabeled", indicating that I used a LLM to prelabel!
 
 ### Failure analysis: 
 <!--
