@@ -162,31 +162,113 @@ Once the loop finishes, the script performs a quick sanity check on the collecte
 
 ## Evaluation Report and Error Analysis
 
+### Baseline Model Metrics
+Overall Accuracy: 0.767 \
+(evaluated on 30/30 parseable responses) 
+
+Per-class metrics:
+
+| Class | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **Analytical / Insight-Driven** | 0.83 | 1.00 | 0.91 | 5 |
+| **Narrative / Fan Conjecture** | 0.89 | 0.73 | 0.80 | 11 |
+| **Low Effort / Reactionary** | 0.50 | 0.33 | 0.40 | 3 |
+| **News, Media & Fluff** | 0.69 | 0.82 | 0.75 | 11 |
+| **Accuracy** | | | **0.77** | **30** |
+| **Macro Avg** | 0.73 | 0.72 | 0.71 | 30 |
+| **Weighted Avg** | 0.77 | 0.77 | 0.76 | 30 |
+
+
+### Fine-Tuned Model Metrics
+Overall Accuracy: 0.6 
+
+Per-class metrics: 
+
+| Class | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **Analytical / Insight-Driven** | 0.00 | 0.00 | 0.00 | 5 |
+| **Narrative / Fan Conjecture** | 0.80 | 0.73 | 0.76 | 11 |
+| **Low Effort / Reactionary** | 0.00 | 0.00 | 0.00 | 3 |
+| **News, Media & Fluff** | 0.50 | 0.91 | 0.65 | 11 |
+| **Accuracy** | | | **0.60** | **30** |
+| **Macro Avg** | 0.33 | 0.41 | 0.35 | 30 |
+| **Weighted Avg** | 0.48 | 0.60 | 0.52 | 30 |
+
 ### Confusion Matrix
+Fine-Tuned Model — Confusion Matrix (Test Set)
+rows (true label) and columns (predicted label)
+
+| True \ Predicted Label | Analytical / Insight-Driven | Narrative / Fan Conjecture | Low Effort / Reactionary | News, Media & Fluff |
+| :--- | :---: | :---: | :---: | :---: |
+| **Analytical / Insight-Driven** | 0 | 0 | 0 | 5 |
+| **Narrative / Fan Conjecture** | 0 | 8 | 0 | 3 |
+| **Low Effort / Reactionary** | 0 | 1 | 0 | 2 |
+| **News, Media & Fluff** | 0 | 1 | 0 | 10 |
 
 ### Failure Analysis
 
+#### 3 Examples of Wrong Predictions
+
+```
+Text:      Skip Bayless Says Spurs Are The Best Fit For LeBron James Next Season
+True:      Narrative / Fan Conjecture
+Predicted: News, Media & Fluff  (confidence: 0.34)
+```
+
+Explanation:
+This isn't news, media & fluff because Skip Bayless said this in a podcast, not on ESPN or Fox Sports 1 or sports radio, these count as sports media platforms. He gives his opinion as a fan, not an employee of those media companies. The boundary between Narrative / Fan Conjecture and News, Media & Fluff that isn't being noticed, whish is who is the person who said the opinion and what platform they said it on. This is prompting problem, to fix this I have to let the model about this boundary in the system prompt.
+
+
+```
+Text: The defining structural baseline of the 2026 postseason is the historic nosedive in league-wide offensive efficiency. According to Basketball Reference, team offensive ratings have collapsed by an ave...
+True:      Analytical / Insight-Driven
+Predicted: News, Media & Fluff  (confidence: 0.31)
+```
+
+Explanation:
+The model is completely blind to deep, data-driven, or schematic analysis if it involves media figures or popular news stories. Later on in the text, it states stats, even gives source of basketball Reference Website, these should be clues to this post being analytical / insight-driven. I believe the model has a token bias and overfitting may occur, to fix this I have to lower the training Epochs / learning rate, inject key words in the system prompt as well. 
+
+```
+Text:      Bro Jalen Brunson is absolute TRASH tonight, I'm so sick of this fraud carrying the franchise into a brick wall. Shooting 4-of-19 in a crucial Game 2 is completely unacceptable and honestly proves Bec...
+True:      Low Effort / Reactionary
+Predicted: Narrative / Fan Conjecture  (confidence: 0.37)
+``` 
+
+Explanation:
+This isn't an narrative / fan conjecture because even this person is giving his opinion on Jalen Brunson, he is disrespecting or saying meaning things to him, making it an low Effort / reactionary post. The model didn't recognize the semantic meaning of "TRASH" on all caps, "brick wall". I believe this is a data problem, not enough low effort / reactionary posts were tested and trained. To fix this, I have to make the dataset more diverse.
+
+
+<!--
+Guiding Questions
 Which labels are being confused? 
-<!-- Look at the confusion matrix — is there one pair of labels (e.g., analysis → hot_take) that accounts for most of the errors? A directional pattern tells you exactly which boundary the model hasn't learned. -->
+ Look at the confusion matrix — is there one pair of labels (e.g., analysis → hot_take) that accounts for most of the errors? A directional pattern tells you exactly which boundary the model hasn't learned. 
 
 Why is that boundary hard? 
-<!-- Is it ambiguous language, sarcasm, short posts, or posts where the topic signals one label but the structure signals another? -->
+Is it ambiguous language, sarcasm, short posts, or posts where the topic signals one label but the structure signals another? 
 
 Is this a labeling problem or a prompt/data problem? 
-<!-- If you labeled those examples consistently but the model still gets them wrong, the issue is in your training data distribution or the boundary itself. If you find you labeled similar posts differently, the issue is annotation inconsistency. -->
+If you labeled those examples consistently but the model still gets them wrong, the issue is in your training data distribution or the boundary itself. If you find you labeled similar posts differently, the issue is annotation inconsistency. 
 
 What would need to change to fix it? 
-<!-- More examples for the confused class? A tighter label definition? More diverse examples that show the hard case explicitly? -->
+More examples for the confused class? A tighter label definition? More diverse examples that show the hard case explicitly? -->
 
 ### Sample Classifications
 <!-- 
 a markdown table or list of 3–5 example posts run through your fine-tuned model, each shown with the predicted label and its confidence score, and for at least one correctly-predicted example, a sentence explaining why the prediction is reasonable. Write these out as text (a markdown table or list) — not a screenshot — so they read cleanly in the README.
 -->
 
+| Post | Label | Correct | Reasoning | Confidence |
+| :--- | :--- | :--- | :--- | :--- |
+| SGA Officially Joins Nike: “We are thrilled to welcome Shai Gilgeous-Alexander to the Nike Basketball signature family. | News, Media & Fluff  | Yes | This is a NBA player signing a shoe endorsement, its a off-court activity and annoucement. | 0.32| 
+| Pacers vs Knicks next season is even more exciting than a Spurs-OKC rematch: Haliburton coming back with a vengeance against the team he beat in historical fashion that immediately went on to become c... | Narrative / Fan Conjecture | Yes | The fan offers his opinion, gives soft evidence, not stats to why he feels this way. | 0.31|
+| Skip Bayless calls Wembanyama “A spoiled child” | News, Media & Fluff | No | The model fails to distinguish between official sports journalism and fan conjecture because it overlooks the speaker's role and the platform's nature. Skip Bayless delivering an opinion on a personal podcast is fan-driven narrative, not official "News, Media & Fluff," because he is speaking as an independent enthusiast rather than an active employee of traditional sports networks (like ESPN, FS1, or sports radio). | 0.30
+
+
 ### Reflection
 <!-- 
 what your model captured vs. what you intended it to capture. This is distinct from listing wrong predictions — it's a higher-level observation about the gap between your label definitions and what the model's decision boundary actually captures. What did the model overfit to? What did it miss? 
 -->
+I believe what my model has captured is overfitting on News, Media & Fluff posts, I intended for no overfitting or underfitting, so I have to lower my epochs and learning rate in the future. Data imbalance on the test and training sets, I will have to change the train/valid/test splits from 70/15/15 to 60/20/20. I needed more test cases for low effort / reactionary  & narrative / insight-driven posts. Having low $F_1$-Scores in those 2 label means that the boundaries aren't recognized. A common error pattern is when the model looks at a post and sees keywords like LeBron James, Jalen Brunson, Spotrac, Mike Breen, Skip Bayless, or Charles Barkley, it ignores the intent of the text and instantly labels it "News, Media & Fluff" just because it mentions mainstream NBA entities.
 
 ## Spec Reflection
 <!--Describe one way the spec helped guide your implementation and one way your implementation diverged from it and why.
@@ -201,7 +283,9 @@ Describe at least 2 specific instances: what you directed the AI tool to do, wha
 **Instance 1** AI Assisted Annotations (Milestone 3)
 
 - *What I gave the AI:*
-The label definitions (gave it earlier in the prompt) & reddit posts
+The label definitions (gave it earlier in the prompt) & reddit posts 
+
+
 Input
 ```
 Knicks fans are making De’Aaron Fox jerseys
@@ -254,3 +338,5 @@ Told me to reduce my token usage by decreasing my token size (characters) in the
 
 - *What I changed or overrode:*
 I decreased my system prompt character length by removing examples for each label and only providing the label definitions.
+
+## Demo Video Link 

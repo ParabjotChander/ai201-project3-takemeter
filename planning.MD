@@ -221,6 +221,7 @@ Plan to give your list of wrong predictions to an AI tool and ask it to identify
 -->
 #### AI Input
 [Will paste LLM model's wrong predictions] \
-My LLM text classifier got these label predictions wrong for these posts/comments, can you identify patterns in thses mistakes, are there directional error patterns?
+My fine-tuned model got these label predictions wrong for these posts/comments, can you identify patterns in thses mistakes, are there directional error patterns? Explain it in a brief paragraph.
 
 #### AI Output
+The fine-tuned model suffered a systematic majority-class collapse, treating "News, Media & Fluff" as a catch-all safety net for 10 out of the 12 errors. It developed a severe vocabulary bias: whenever it encountered mainstream NBA keywords, player names, or media figures, it bypassed the actual context and defaulted to the "Fluff" or "Narrative" labels. This caused the model to experience catastrophic forgetting, completely blinding it to the deep tactical vocabulary of the "Analytical" class and the emotional tone of "Low Effort" posts, leaving it with flat, low-confidence scores centered around 0.33.
