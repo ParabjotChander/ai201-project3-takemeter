@@ -1,0 +1,13 @@
+{
+  "baseline_accuracy": 0.7667,
+  "finetuned_accuracy": 0.6,
+  "improvement": -0.1667,
+  "test_set_size": 30,
+  "label_map": {
+    "Analytical / Insight-Driven": 0,
+    "Narrative / Fan Conjecture": 1,
+    "Low Effort / Reactionary": 2,
+    "News, Media & Fluff": 3
+  },
+  "model": "distilbert-base-uncased"
+}

@@ -5,7 +5,7 @@
 -->
 I chose r/nba (the NBA Reddit community). \
 
-I selected this community because sports discourse on a massive public forum like Reddit serves as a perfect microscopic reflection of internet culture. It sits at a unique intersection of heavy data-driven analysis, journalistic reporting, corporate entertainment, and raw, emotionally charged fan tribalism. This means the community is constantly generating massive volumes of text that vary wildly in tone, intent, and substance on a daily basis.
+I chose this community because Reddit sports discourse perfectly mirrors internet culture, blending data analysis, journalism, entertainment, and passionate fan tribalism into a massive, daily mix of diverse commentary.
 
 ## Labels: 
 <!--What are your 2–4 labels? Define each in a complete sentence. Include 2 example posts per label.
@@ -116,7 +116,7 @@ I will manually enter 200 samples from the reddit's NBA page and insert them int
 ## Evaluation metrics: 
 <!--Which metrics will you use to evaluate your model and why are those the right ones for this specific task? (Accuracy alone is not enough — explain what else you need and why.)
 -->
-Rather than overall accuracy, I will consider per class accuracy, precision, recall, $F_1$-Score and confusion matrix. Per class accuracy is less flawed when compared to overall accurracy, especially when the dataset isn't diverse. Precision & Recall are when the model predicts the positive label class, how often is it right and out of all the actual positive label instances, how many did the model manage to find respectively. $F_1$-Score is a decimal value between 0 and 1, indicator of how good and complete are the predicted labels. A confusion matrix is used for classification models. It compares the model's predictions against the actual, true labels in a dataset, visually highlighting where the algorithm is getting "confused" and making mistakes
+Rather than overall accuracy, I will consider per class accuracy, precision, recall, $F_1$-Score and confusion matrix. I will choose per class accuracy because it's less flawed when compared to overall accurracy, especially when the dataset isn't diverse. Precision & Recall are when the model predicts the positive label class, how often is it right and out of all the actual positive label instances, how many did the model manage to find respectively. $F_1$-Score is a decimal value between 0 and 1, indicator of how good and complete are the predicted labels. I'm choosing the $F_1$-Score because it the harmonic mean of the precision and recall (it interprets both metrics).
 
 Precision = True Positive / True Positive + False Positive \
 Recall = True Positive / True Positive + False Negative \
@@ -213,7 +213,7 @@ If you are ever stuck on a post during your actual data labeling phase, ask your
 ### Annotation assistance: 
 <!-- Decide whether you'll use an LLM to pre-label a batch of examples before reviewing them yourself. If yes, note which tool you'll use and how you'll track which examples were pre-labeled (for disclosure in your AI usage section).
 -->
-I will use Google Gemini, I'll track which examples were pre-labeled by having a note column in the CSV file, I will enter "prelabeled", indicating that I used a LLM to prelabel!
+I will use Google Gemini, I'll track which examples were pre-labeled by having a note column in the CSV file, I will enter "AI Assisted Annotation", indicating that I used a LLM to prelabel!
 
 ### Failure analysis: 
 <!--
@@ -221,6 +221,6 @@ Plan to give your list of wrong predictions to an AI tool and ask it to identify
 -->
 #### AI Input
 [Will paste LLM model's wrong predictions] \
-My LLM text classifier got these label predictions wrong for these posts/comments, can you identify patterns in thses mistakes, are these directional error patterns?
+My LLM text classifier got these label predictions wrong for these posts/comments, can you identify patterns in thses mistakes, are there directional error patterns?
 
 #### AI Output
